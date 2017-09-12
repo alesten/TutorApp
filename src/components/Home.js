@@ -16,9 +16,14 @@ export default class Home extends Component {
         this.buttons = this.buttons.bind(this);
         this.getNextInQueue = this.getNextInQueue.bind(this);
         this.getCurrentInQueue = this.getCurrentInQueue.bind(this);
+        this.loadFromLs = this.loadFromLs.bind(this);
     }
 
     componentDidMount() {
+        this.loadFromLs();
+    }
+
+    loadFromLs()  {
         ls.get('student')
             .then((data) => {
                 console.log("Helping:", data);
@@ -74,7 +79,7 @@ export default class Home extends Component {
         ls.save('student', student)
             .then(() => {
                 this.setState({ isHelping: true });
-                this.props.navigation.navigate('Student', { student });
+                this.props.navigation.navigate('Student', { student, goBackAction: this.loadFromLs });
             });
     }
 
@@ -85,9 +90,11 @@ export default class Home extends Component {
                     this.setState({ isHelping: false });
                     return;
                 }
-                this.props.navigation.navigate('Student', { student: data });
+                this.props.navigation.navigate('Student', { student: data, goBackAction: this.loadFromLs });
             });
     }
+
+
 }
 
 const styles = StyleSheet.create({
