@@ -18,11 +18,16 @@ export default class Login extends React.Component {
         this.onLogin = this.onLogin.bind(this);
     }
 
-    async onLogin() {
+    onLogin() {
         let { name, password } = this.state;
 
         if (name === "Alexander" && password === "1234") {
             ls.save('tutorId', 1)
+                .then(() => {
+                    this.props.didLogin();
+                });
+        } else if (name === "Martin" && password === "1234") {
+            ls.save('tutorId', 2)
                 .then(() => {
                     this.props.didLogin();
                 });

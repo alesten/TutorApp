@@ -15,10 +15,15 @@ export default class App extends React.Component {
       });
 
     this.didLogin = this.didLogin.bind(this);
+    this.didLogout = this.didLogout.bind(this);
   }
 
   didLogin() {
     this.setState({ showLogin: false });
+  }
+
+  didLogout() {
+    this.setState({ showLogin: true });
   }
 
   render() {
@@ -33,7 +38,7 @@ export default class App extends React.Component {
     if (this.state.showLogin) {
       return <Login didLogin={this.didLogin} />
     } else {
-      return <Navigation />
+      return <Navigation didLogout={this.didLogout} />
     }
   }
 }
